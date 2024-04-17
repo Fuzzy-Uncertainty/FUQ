@@ -33,7 +33,7 @@ def PSO_UQ(y_pred,y_true,iters=1000):
         return -specificty*coverage(a,b)
     
     e=mean_absolute_error(y_true, y_pred)
-    max_bound = e*100 * np.ones(2)
+    max_bound = 100 * np.ones(2)
     min_bound = np.zeros(2)
     bounds = (min_bound, max_bound)
 
@@ -42,5 +42,7 @@ def PSO_UQ(y_pred,y_true,iters=1000):
     # Perform optimization
     optimizer = ps.single.GlobalBestPSO(n_particles=10, dimensions=2, options=options, bounds=bounds)
     cost, pos = optimizer.optimize(func, iters)
-    return pos,cost,optimizer
+    cost_history=optimizer.cost_history
+    fitness=np.array([-1])*cost_history
+    return pos,cost,optimizer,fitness
 

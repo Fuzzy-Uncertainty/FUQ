@@ -1,8 +1,7 @@
 import numpy as np
 from sklearn.metrics import mean_absolute_error
-import pyswarms as ps
-#from pyswarms.utils.functions import single_obj as fx
-# Set-up hyperparameters
+import pygad
+
 
 
 def GA_UQ(yp,y):
@@ -32,13 +31,13 @@ def GA_UQ(yp,y):
     fitness_function = fitness
 
     num_generations = 200
-    num_parents_mating = 10
+    num_parents_mating = 12
 
     sol_per_pop = 16
     num_genes = 2
 
     init_range_low = 0
-    init_range_high = 20
+    init_range_high = 100
 
     parent_selection_type = "sss"
     keep_parents = 1
@@ -50,6 +49,7 @@ def GA_UQ(yp,y):
     gene_space = [{'low': 0, 'high': 20}, {'low': 0, 'high': 20}]
 
     ga_instance = pygad.GA(num_generations=num_generations,
+                        save_solutions=True,
                         num_parents_mating=num_parents_mating,
                         fitness_func=fitness_function,
                         sol_per_pop=sol_per_pop,
